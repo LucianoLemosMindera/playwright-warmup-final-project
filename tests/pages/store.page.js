@@ -5,6 +5,10 @@ export class StorePage{
         this.menuOptionBtn = (menuOption) => page.getByTestId('store-tab-' + menuOption);
     }
 
+    /**
+    * Navigate to a given page through the menu
+    * @param {string} menuOption - Page to navigate.
+    */ 
     async navigateToPage(menuOption) {
         try{
             if (!expect(this.menuOptionBtn(menuOption)).toBeVisible());

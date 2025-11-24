@@ -11,19 +11,20 @@ export class HomePage extends StorePage {
         this.instructionsileTitle = (value) => page.getByTestId('instructions-' + value + '-title');
     }
 
+    /**
+    * Navigate to Home page
+    */
     async navigateToHomePage() {
             await this.navigateToPage(MENU.home.name);
         }
 
+    /**
+    * Validate the existence of image, title and text from a given tile
+    * @param {string} tile - Tile to be validate.
+    */   
     async validateTilesExist(tile){
         await expect(this.istructionsTileImg(tile.name)).toBeVisible();
         await expect(this.instructionsileTitle(tile.name)).toBeVisible();
         await expect(this.instructionsileTitle(tile.name)).toHaveText(tile.instructionTitle);
     }
-
-    async validateMenuOptions(menu){
-        await expect(this.menuOptionBtn(menu.name)).toBeVisible();
-        await expect(this.menuOptionBtn(menu.name)).toHaveText(menu.text);
-    }
-
 }
