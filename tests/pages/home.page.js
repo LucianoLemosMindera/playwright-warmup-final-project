@@ -1,19 +1,19 @@
 import { expect } from "@playwright/test";
+import { StorePage } from "./store.page";
+import { MENU } from "../data/menu";
 
-export class HomePage{
+export class HomePage extends StorePage {
 
     constructor(page) {
-        this.page = page;
+        super(page);
         this.pageHeading = page.getByRole('heading', {name: 'Instructions'});
         this.istructionsTileImg = (value) => page.getByTestId('instructions-icon-' + value);
         this.instructionsileTitle = (value) => page.getByTestId('instructions-' + value + '-title');
-        this.homeMenuBtn = (value) => page.getByTestId('store-tab-' + value);
     }
 
     async navigateToHomePage() {
-        await this.page.goto('');
-        await expect(this.pageHeading).toBeVisible();
-    }
+            await this.navigateToPage(MENU.home.name);
+        }
 
     async validateTilesExist(tile){
         await expect(this.istructionsTileImg(tile.name)).toBeVisible();
@@ -22,8 +22,8 @@ export class HomePage{
     }
 
     async validateMenuOptions(menu){
-        await expect(this.homeMenuBtn(menu.name)).toBeVisible();
-        await expect(this.homeMenuBtn(menu.name)).toHaveText(menu.text);
+        await expect(this.menuOptionBtn(menu.name)).toBeVisible();
+        await expect(this.menuOptionBtn(menu.name)).toHaveText(menu.text);
     }
 
 }
