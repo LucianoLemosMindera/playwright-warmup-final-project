@@ -1,6 +1,5 @@
 import { expect } from "@playwright/test";
 import { StorePage } from "./store.page";
-import { MENU } from "../data/menu";
 
 export class HomePage extends StorePage {
 
@@ -11,12 +10,7 @@ export class HomePage extends StorePage {
         this.instructionsileTitle = (value) => page.getByTestId('instructions-' + value + '-title');
     }
 
-    /**
-    * Navigate to Home page
-    */
-    async navigateToHomePage() {
-            await this.navigateToPage(MENU.home.name);
-        }
+    /************************** Assertion ***************************/
 
     /**
     * Validate the existence of image, title and text from a given tile
