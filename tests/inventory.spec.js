@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 import { InventoryPage } from './pages/inventory.page';
 import { PRODUCT_TO_ADD } from './data/products';
+import { CatalogPage } from './pages/catalog.page';
 
 test.beforeEach(async ({ page }) => {
   await test.step('Navigate to inventory page', async () => {
@@ -19,16 +20,19 @@ test('Validate Inventory page elements', async ({ page }) => {
 
 test('Add product to inventory successfully', async ({ page }) => {
   const inventory = new InventoryPage(page);
+  const catalog = new CatalogPage(page)
   const product = PRODUCT_TO_ADD.pokeball;
+  var lastProductIndex = 0;
   await test.step('Fill new product fields and save new product', async () => {
     await inventory.addProductToInventory(product.name, product.value, product.quantity);
+    lastProductIndex = await inventory.getLastProductIndex();
   });
   await test.step('Validate if new product was added to inventory', async () => {
     await inventory.validateProductAddedToInventory(product.name, product.value, product.quantity);
   });
   await test.step('Validate new product was show in Catalog page', async () => {
     await inventory.navigateToCatalogPage();
-    await inventory.validateProductIsPresentInCatalog(product);
+    await catalog.validateProductOnCatalog(lastProductIndex, product);
   });
 });
 

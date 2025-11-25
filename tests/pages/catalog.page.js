@@ -12,11 +12,23 @@ export class CatalogPage extends StorePage {
         this.addToCartButton = (value) => page.getByTestId('catalog-item-add-button-' + value);
     }
 
+    /************************** Action ***************************/
+
+    /**
+    * Add product to Cart
+    * @returns {number} index - Index of product added
+    */   
+    async addRandonProductToCart(){
+        const index = await this.getRandonIndex();
+        await this.addToCartButton(index).click();
+        return index;
+    }
+
     /************************** Assertion ***************************/
 
     /**
     * Validate if elements in Catalog page are visible
-    * @param {number} index - Tile to be validate.
+    * @param {number} index - index of item to be validated.
     */   
     async validateElements(index){
         await expect(this.pageHeading).toBeVisible();
@@ -25,8 +37,8 @@ export class CatalogPage extends StorePage {
 
     /**
     * Validate if product load the right value for name, price and  available quantity
-    * @param {number} index - index of product to be validate
-    * @param {product} product - Product to be validated
+    * @param {number} index - index of product to be validate.
+    * @param {product} product - Product to be validated.
     */   
     async validateProductOnCatalog(index, product){
         await expect(this.catalogItemName(index)).toHaveText(product.name);
@@ -36,8 +48,8 @@ export class CatalogPage extends StorePage {
 
     /**
     * validate if button 'Add to Cart' is enable or disabled and its text
-    * @param {number} index - index of product to be validate
-    * @param {boolean} isAvailable - Product to be validated
+    * @param {number} index - index of product to be validate.
+    * @param {boolean} isAvailable - indicates if button should be enabled.
     */   
     async validateAddToCartButton(index, isAvailable){
         if (isAvailable){
@@ -49,7 +61,6 @@ export class CatalogPage extends StorePage {
             await expect(this.addToCartButton(index)).toBeDisabled; 
         }
     }
-
 
     /************************** Utilities ***************************/
 

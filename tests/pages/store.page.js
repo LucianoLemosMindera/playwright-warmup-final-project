@@ -31,11 +31,16 @@ export class StorePage{
     }
 
     /**
+    * Navigate to Cart page
+    */
+    async navigateToCartPage() {
+        await this.menuOptionBtn(MENU.cart.name).click();
+    }
+
+    /**
     * Navigate to store HomePage
     */ 
     async openStorePage() {
         await this.page.goto('');
     }
-
-
 }

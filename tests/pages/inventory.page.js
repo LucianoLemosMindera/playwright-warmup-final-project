@@ -7,7 +7,6 @@ export class InventoryPage extends StorePage {
 
     constructor(page) {
         super(page);
-        this.catalog = new CatalogPage(page);
         this.pageHeading = page.getByRole('heading', {name: 'Inventory Management'});
         this.productNameInput = page.getByTestId('inventory-input-name');
         this.productPriceInput = page.getByTestId('inventory-input-price');
@@ -94,15 +93,6 @@ export class InventoryPage extends StorePage {
         await expect(this.productTileName(lastProductIndex)).toContainText(name);
         await expect(this.productTilePrice(lastProductIndex)).toContainText(price);
         await expect(this.productTileQuantity(lastProductIndex)).toContainText(quantity);
-    }
-
-    /**
-    * Validate if the product just added to inventory is also being presented at Catalog page
-    * @param {Product} product - Product to be verified.
-    */
-    async validateProductIsPresentInCatalog(product){
-        const lastProductIndex = await this.getLastProductIndex();
-        this.catalog.validateProductOnCatalog(lastProductIndex, product)
     }
 
     /************************** Utilities ***************************/
