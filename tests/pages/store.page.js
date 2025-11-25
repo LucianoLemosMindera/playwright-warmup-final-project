@@ -1,16 +1,10 @@
 import { MENU } from "../data/menu";
-//import { CartPage } from "./cart.page";
-//import { CatalogPage } from "./catalog.page";
-//import { InventoryPage } from "./inventory.page";
 
 export class StorePage{
 
     constructor(page) {
         this.page = page;
         this.menuOptionBtn = (menuOption) => page.getByTestId('store-tab-' + menuOption);
-        //this.inventory = new InventoryPage(page);
-        //this.cart = new CartPage(page);
-        //this.catalog = new CatalogPage(page)
     }
 
     /************************** Action ***************************/
@@ -49,6 +43,4 @@ export class StorePage{
     async openStorePage() {
         await this.page.goto('');
     }
-
-
 }

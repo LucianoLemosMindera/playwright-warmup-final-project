@@ -47,14 +47,6 @@ export class CatalogPage extends StorePage {
     }
 
     /**
-    * Validate if product load the right value for name, price and at Cart page
-    * @param {product} product - Product to be validated.
-    */   
-    async validateProductAtCartPage(product){
-        await this.cart.validateCartPageProduct(product)
-    }
-
-    /**
     * validate if button 'Add to Cart' is enable or disabled and its text
     * @param {number} index - index of product to be validate.
     * @param {boolean} isAvailable - indicates if button should be enabled.
@@ -69,7 +61,6 @@ export class CatalogPage extends StorePage {
             await expect(this.addToCartButton(index)).toBeDisabled; 
         }
     }
-
 
     /************************** Utilities ***************************/
 
