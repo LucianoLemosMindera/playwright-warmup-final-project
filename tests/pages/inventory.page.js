@@ -1,12 +1,13 @@
 import { expect } from "@playwright/test";
-import { MENU } from "../data/menu";
 import { StorePage } from "./store.page";
+import { CatalogPage } from "./catalog.page";
 
 
 export class InventoryPage extends StorePage {
 
     constructor(page) {
         super(page);
+        this.catalog = new CatalogPage(page);
         this.pageHeading = page.getByRole('heading', {name: 'Inventory Management'});
         this.productNameInput = page.getByTestId('inventory-input-name');
         this.productPriceInput = page.getByTestId('inventory-input-price');
@@ -18,32 +19,9 @@ export class InventoryPage extends StorePage {
         this.productTileQuantity = (value) => page.getByTestId('inventory-product-quantity-' + value);
         this.productTileDecreaseButton = (value) => page.getByTestId('inventory-product-decrease-' + value);
         this.productTileIncreaseButton = (value) => page.getByTestId('inventory-product-increase-' + value);
-    }   
-
-    /**
-    * Navigate to Inventory page
-    */
-    async navigateToInventoryPage() {
-        await this.navigateToPage(MENU.inventory.name);
     }
 
-    /**
-    * Validate presence of elements in Inventory page
-    */
-    async validatePageElements(){
-        const lastProductIndex = await this.getLastProductIndex();
-        await expect(this.pageHeading).toBeVisible();
-        await expect(this.productNameInput).toBeVisible();
-        await expect(this.productPriceInput).toBeVisible();
-        await expect(this.productQuantityInput).toBeVisible();
-        await expect(this.addProductButton).toBeVisible();
-        await expect(this.productTile(lastProductIndex)).toBeVisible();
-        await expect(this.productTileName(lastProductIndex)).toBeVisible();
-        await expect(this.productTilePrice(lastProductIndex)).toBeVisible();
-        await expect(this.productTileQuantity(lastProductIndex)).toBeVisible();
-        await expect(this.productTileDecreaseButton(lastProductIndex)).toBeVisible();
-        await expect(this.productTileIncreaseButton(lastProductIndex)).toBeVisible();
-    }
+    /************************** Actions ***************************/
 
     /**
     * Add a new product to inventory
@@ -74,6 +52,26 @@ export class InventoryPage extends StorePage {
         await this.productTileDecreaseButton(index).click();
     }
 
+    /************************** Assertions ***************************/
+
+    /**
+    * Validate presence of elements in Inventory page
+    */
+    async validatePageElements(){
+        const lastProductIndex = await this.getLastProductIndex();
+        await expect(this.pageHeading).toBeVisible();
+        await expect(this.productNameInput).toBeVisible();
+        await expect(this.productPriceInput).toBeVisible();
+        await expect(this.productQuantityInput).toBeVisible();
+        await expect(this.addProductButton).toBeVisible();
+        await expect(this.productTile(lastProductIndex)).toBeVisible();
+        await expect(this.productTileName(lastProductIndex)).toBeVisible();
+        await expect(this.productTilePrice(lastProductIndex)).toBeVisible();
+        await expect(this.productTileQuantity(lastProductIndex)).toBeVisible();
+        await expect(this.productTileDecreaseButton(lastProductIndex)).toBeVisible();
+        await expect(this.productTileIncreaseButton(lastProductIndex)).toBeVisible();
+    }
+
     /**
     * Validate the available quantity from a given product
     * @param {string} index - Product index.
@@ -97,6 +95,17 @@ export class InventoryPage extends StorePage {
         await expect(this.productTilePrice(lastProductIndex)).toContainText(price);
         await expect(this.productTileQuantity(lastProductIndex)).toContainText(quantity);
     }
+
+    /**
+    * Validate if the product just added to inventory is also being presented at Catalog page
+    * @param {Product} product - Product to be verified.
+    */
+    async validateProductIsPresentInCatalog(product){
+        const lastProductIndex = await this.getLastProductIndex();
+        this.catalog.validateProductOnCatalog(lastProductIndex, product)
+    }
+
+    /************************** Utilities ***************************/
 
     /**
     * Return quantity of product from a given index.

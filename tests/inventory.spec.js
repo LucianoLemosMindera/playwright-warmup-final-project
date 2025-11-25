@@ -5,6 +5,7 @@ import { PRODUCT_TO_ADD } from './data/products';
 test.beforeEach(async ({ page }) => {
   await test.step('Navigate to inventory page', async () => {
     const inventory = new InventoryPage(page);
+    await inventory.openStorePage();
     await inventory.navigateToInventoryPage();
    });
 });
@@ -22,8 +23,12 @@ test('Add product to inventory successfully', async ({ page }) => {
   await test.step('Fill new product fields and save new product', async () => {
     await inventory.addProductToInventory(product.name, product.value, product.quantity);
   });
-  await test.step('Validate new product added to inventory', async () => {
+  await test.step('Validate if new product was added to inventory', async () => {
     await inventory.validateProductAddedToInventory(product.name, product.value, product.quantity);
+  });
+  await test.step('Validate new product was show in Catalog page', async () => {
+    await inventory.navigateToCatalogPage();
+    await inventory.validateProductIsPresentInCatalog(product);
   });
 });
 
