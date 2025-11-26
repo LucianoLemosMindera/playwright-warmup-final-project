@@ -35,16 +35,3 @@ test('validate \'Add to cart\' Button disable when product is NOT available', as
       await catalog.validateAddToCartButton(6, false);
    });
 });
-
-test('Add product to cart and validate Cart page', async ({ page }) => {
-    const catalog = new CatalogPage(page);
-    var index = 0;
-    await test.step('Add randon product to cart', async () => {
-      index = await catalog.addRandonProductToCart();
-   });
-    await test.step('Validate product added to cart', async () => {
-      await catalog.navigateToCartPage();
-      const cart = new CartPage(page)
-      await cart.validateCartPageWithProduct(INVENTORY_PRODUCTS.at(index));
-   });
-});

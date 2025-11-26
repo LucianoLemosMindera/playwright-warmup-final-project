@@ -38,6 +38,13 @@ export class StorePage{
     }
 
     /**
+    * Navigate to Payments page
+    */
+    async navigateToPaymentPage() {
+        await this.menuOptionBtn(MENU.payments.name).click();
+    }
+
+    /**
     * Navigate to store HomePage
     */ 
     async openStorePage() {

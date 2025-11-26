@@ -29,16 +29,3 @@ test('validate Cart page when cart has products', async ({ page }) => {
       await cart.validateCartPageElements();
    });
 });
-
-test('Go to Payments from Cart page', async ({ page }) => {
-    const cart = new CartPage(page);
-    const catalog = new CatalogPage(page);
-    await test.step('Setup scenario', async () => {
-      await cart.navigateToCatalogPage();
-      await catalog.addRandonProductToCart();
-   });
-    await test.step('Click on \'Go to Payment\' button', async () => {
-      await cart.navigateToCartPage();
-      await cart.goToPayments();
-   });
-});

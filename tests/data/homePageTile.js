@@ -18,5 +18,5 @@ export const TILE  = [
     {
         name: "orders",
         instructionTitle: "Orders"
-    },
+    }
 ];
