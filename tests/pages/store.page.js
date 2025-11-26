@@ -45,6 +45,13 @@ export class StorePage{
     }
 
     /**
+    * Navigate to Order page
+    */
+    async navigateToOrderPage() {
+        await this.menuOptionBtn(MENU.orders.name).click();
+    }
+
+    /**
     * Navigate to store HomePage
     */ 
     async openStorePage() {

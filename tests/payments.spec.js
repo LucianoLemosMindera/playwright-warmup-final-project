@@ -27,7 +27,6 @@ test('Validate elements in Payment page with product added to Cart', async ({ pa
       await cart.goToPayments();
    });
     await test.step('Validate Payment page elements', async () => {
-      await payment.navigateToPaymentPage();
       await payment.validatePaymentPageElements();
    });
 });
