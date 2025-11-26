@@ -18,7 +18,7 @@ export class OrderPage extends StorePage {
     /************************** Assertions ***************************/
     
     /** 
-    * Validate Payment page presentation when cart is empty
+    * Validate Order page presentation when cart is empty
     */   
     async validateNoOrderMessage(){
         await expect(this.ordersEmptyMesssage).toBeVisible();
@@ -27,8 +27,8 @@ export class OrderPage extends StorePage {
     /**
     * Validate the existence of elements at Order page with products added to cart
     */   
-    async validatePaymentPageElements(){
-        await expect(pageHeading).toBeVisible();
+    async validateOrderPageElements(){
+        await expect(this.pageHeading).toBeVisible();
         await expect(this.orderDate(0)).toBeVisible();
         await expect(this.orderPaymentMethod(0)).toBeVisible();
         await expect(this.orderItemName(0, 0)).toBeVisible();
