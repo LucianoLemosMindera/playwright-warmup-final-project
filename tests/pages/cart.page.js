@@ -1,6 +1,5 @@
 import { expect } from "@playwright/test";
 import { StorePage } from "./store.page";
-import { CatalogPage } from "./catalog.page";
 
 export class CartPage extends StorePage {
 
@@ -25,8 +24,6 @@ export class CartPage extends StorePage {
     async goToPayments(){
         await this.goToPaymentButton.click();
     }
-
-
 
     /************************** Assertion ***************************/
 
@@ -53,7 +50,7 @@ export class CartPage extends StorePage {
     * Validate product data on cart
     * @param {Product} product - Product to be validated.
     */   
-    async validateCartPageWithProduct(product){
+    async validateProductInCart(product){
         const quantity = 1;
         await expect(this.cartItemName(0)).toHaveText(product.name);
         await expect(this.cartItemQuantity(0)).toHaveText(quantity.toString());
